@@ -34,8 +34,8 @@ func (serv *Server) Close() error {
 	return nil
 }
 
-/*Method for start the server*/
+/*...Method for start the server*/
 func (serv *Server) Start() {
-	log.Printf("Server on port:", serv.server.Addr)
+	log.Println("Server on port", serv.server.Addr)
 	log.Fatal(serv.server.ListenAndServe())
 }

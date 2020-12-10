@@ -6,6 +6,7 @@ import (
 	"os/signal"
 
 	_ "github.com/joho/godotenv/autoload"
+	"github.com/lucabecci/go-api-blog/internal/data"
 	"github.com/lucabecci/go-api-blog/internal/server"
 )
 
@@ -18,6 +19,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	db := data.New()
+	if err := db.DB.Ping(); err != nil {
+		log.Fatal(err)
+	}
+
 	go serv.Start()
 
 	command := make(chan os.Signal, 1)
@@ -25,4 +31,5 @@ func main() {
 	<-command
 
 	serv.Close()
+	data.Close()
 }
